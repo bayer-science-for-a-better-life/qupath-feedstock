@@ -10,5 +10,5 @@ done
 DIR="$( cd -P "$( dirname "$SOURCE" )" >/dev/null 2>&1 && pwd )"
 
 # Do run QuPath
-open -n "${DIR}/QuPath.app" --args "$@"
+open -n "${DIR}/QuPath.app" --args "$@" || open -a "${DIR}/QuPath.app" --args "$@"
 
