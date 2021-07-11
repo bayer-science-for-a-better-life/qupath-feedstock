@@ -5,7 +5,7 @@ Home: https://qupath.github.io/
 
 Package license: GPLv3
 
-Feedstock license: BSD 3-Clause
+Feedstock license: BSD-3-Clause
 
 Summary: QuPath is an open, powerful, flexible, extensible software platform for whole slide image analysis.
 

@@ -9,9 +9,9 @@
 # when this package is installed.
 #
 
-{% set github_version="0.2.0-m9" %}
-{% set version="0.2.0.m9" %}
-{% set build_number="1" %}
+{% set github_version="0.2.1" %}
+{% set version="0.2.1" %}
+{% set build_number="0" %}
 
 package:
   name: qupath
@@ -20,14 +20,14 @@ package:
 source:
 
   - url: https://github.com/qupath/qupath/releases/download/v{{ github_version }}/QuPath-{{ github_version }}-Linux.tar.xz  # [linux]
-    sha256: 8eace54cdba63c1c4b19a91d0dd103256bc845922e0532025c4a2c23c30bbdae                                                # [linux]
+    sha256: 898303243464f2225030a198e869adfea834f5a19f0604936afa0c256e0623ec                                                # [linux]
 
-  - url: https://github.com/qupath/qupath/releases/download/v{{ github_version }}/QuPath-{{ github_version }}-Mac.dmg  # [osx]
-    sha256: 34d8fb5e32c7ee627b2b06fe3c713f8474a5d72a68b290f17ba85c86aeda7b09                                           # [osx]
+  - url: https://github.com/qupath/qupath/releases/download/v{{ github_version }}/QuPath-{{ github_version }}-Mac.pkg  # [osx]
+    sha256: d128471bd0e2596165c8aa09012cc6944049df54fb72ac0c0c637b3ce9de7bac                                           # [osx]
 
   - url: https://github.com/qupath/qupath/releases/download/v{{ github_version }}/QuPath-{{ github_version }}-Windows.zip  # [win]
     folder: qupath                                                                                                         # [win]
-    sha256: 522f57211ec0e02c7a2d5e435950f2537be52e7bd1740e37c8a458657ec81817                                               # [win]
+    sha256: 8010bb932a0b209da9e26307ae44f1f49636b04a661e52294a00bd0845852a42                                               # [win]
 
 build:
 
@@ -50,8 +50,9 @@ build:
     - cp ${RECIPE_DIR}/qupath-linux ${PREFIX}/bin/qupath                # [linux]
 
     # --- macos
-    - 7z x QuPath-{{ github_version }}-Mac.dmg                                      # [osx]
-    - mv QuPath-{{ github_version }}/QuPath-{{ github_version }}.app ${PREFIX}/bin  # [osx]
+    - 7z x QuPath-{{ github_version }}-Mac.pkg                                      # [osx]
+    - 7z x Payload~                                                                 # [osx]
+    - mv QuPath-{{ github_version }}.app ${PREFIX}/bin                              # [osx]
     - cd ${PREFIX}/bin                                                              # [osx]
     - ln -s QuPath-{{ github_version }}.app QuPath.app                              # [osx]
     - chmod +x QuPath.app/Contents/MacOS/QuPath-{{ github_version }}                # [osx]
@@ -71,7 +72,7 @@ requirements:
   build:
     - p7zip  # [osx]
   run:
-    - pixman >0.38.4 # [unix]
+    - pixman >0.38.4  # [unix]
 
 test:
   commands:
