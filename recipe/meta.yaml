@@ -1,5 +1,6 @@
 #
-# QuPath conda-forge friendly recipe
+# QuPath conda-forge friendly recipe.
+# This recipe version compiles QuPath from source and so is suitable to cut releases with hotfixes.
 #
 # Since the JDK situation in conda-forge is at the moment a bit stuck,
 # we repackage QuPath releases, including the current JRE used to develop them.
@@ -9,8 +10,12 @@
 # when this package is installed.
 #
 
-{% set github_version="0.2.0-m9" %}
-{% set version="0.2.0.m9" %}
+{% set repo="https://github.com/qupath/qupath" %}
+{% set commit="df7dea21e4a0ead5743995143780d022bdcfded1" %}
+{% set sha256="99c3c912c2c77b6713adc7cee79fcc485b8a55d10e650241218701f4ea293814" %}
+{% set dev_version="0.2.0-m10-SNAPSHOT" %}
+{% set github_version="0.2.0-m10dev0" %}
+{% set version="0.2.0.m10dev0" %}
 {% set build_number="1" %}
 
 package:
@@ -19,48 +24,55 @@ package:
 
 source:
 
-  - url: https://github.com/qupath/qupath/releases/download/v{{ github_version }}/QuPath-{{ github_version }}-Linux.tar.xz  # [linux]
-    sha256: 8eace54cdba63c1c4b19a91d0dd103256bc845922e0532025c4a2c23c30bbdae                                                # [linux]
-
-  - url: https://github.com/qupath/qupath/releases/download/v{{ github_version }}/QuPath-{{ github_version }}-Mac.dmg  # [osx]
-    sha256: 34d8fb5e32c7ee627b2b06fe3c713f8474a5d72a68b290f17ba85c86aeda7b09                                           # [osx]
-
-  - url: https://github.com/qupath/qupath/releases/download/v{{ github_version }}/QuPath-{{ github_version }}-Windows.zip  # [win]
-    folder: qupath                                                                                                         # [win]
-    sha256: 522f57211ec0e02c7a2d5e435950f2537be52e7bd1740e37c8a458657ec81817                                               # [win]
+  - url: {{ repo }}/archive/{{ commit }}.tar.gz
+    sha256: {{ sha256 }}
+    folder: qupath
 
 build:
 
   number: {{ build_number }}
 
   # See https://conda.io/projects/conda-build/en/latest/resources/define-metadata.html#binary-relocation
-  # QuPath is working fine without relocation, but chokes if conda messes around these shared objects
+  # QuPath is working fine without relocation, but chokes if conda messes around these shared objects (at least in macos)
   binary_relocation: False
 
   script:
 
     # --- linux
-    - mkdir -p ${PREFIX}/opt/QuPath-{{ github_version }}                # [linux]
-    - mv bin lib ${PREFIX}/opt/QuPath-{{ github_version }}              # [linux]
-    - cd ${PREFIX}/opt                                                  # [linux]
-    - ln -s QuPath-{{ github_version }} QuPath                          # [linux]
-    - mkdir -p ${PREFIX}/bin                                            # [linux]
-    - cd ${PREFIX}/bin                                                  # [linux]
-    - ln -s ../opt/QuPath/bin/QuPath-{{ github_version }} ./qupath-bin  # [linux]
-    - cp ${RECIPE_DIR}/qupath-linux ${PREFIX}/bin/qupath                # [linux]
+    - mkdir -p ${PREFIX}/opt/QuPath-{{ github_version }}             # [linux]
+    - cd qupath                                                      # [linux]
+    - ./gradlew createPackage                                        # [linux]
+    - cd ./build/dist/QuPath-{{ dev_version }}                       # [linux]
+    - mv bin lib ${PREFIX}/opt/QuPath-{{ github_version }}           # [linux]
+    - cd ${PREFIX}/opt                                               # [linux]
+    - ln -s QuPath-{{ github_version }} QuPath                       # [linux]
+    - mkdir -p ${PREFIX}/bin                                         # [linux]
+    - cd ${PREFIX}/bin                                               # [linux]
+    - ln -s ../opt/QuPath/bin/QuPath-{{ dev_version }} ./qupath-bin  # [linux]
+    - cp ${RECIPE_DIR}/qupath-linux ${PREFIX}/bin/qupath             # [linux]
 
     # --- macos
-    - 7z x QuPath-{{ github_version }}-Mac.dmg                                      # [osx]
-    - mv QuPath-{{ github_version }}/QuPath-{{ github_version }}.app ${PREFIX}/bin  # [osx]
+    - cd qupath                                                                     # [osx]
+    - ./gradlew createPackage                                                       # [osx]
+    - mv ./build/dist/QuPath-{{ dev_version }}.app ${PREFIX}/bin                    # [osx]
     - cd ${PREFIX}/bin                                                              # [osx]
-    - ln -s QuPath-{{ github_version }}.app QuPath.app                              # [osx]
-    - chmod +x QuPath.app/Contents/MacOS/QuPath-{{ github_version }}                # [osx]
+    - ln -s QuPath-{{ dev_version }}.app QuPath.app                                 # [osx]
+    - chmod +x QuPath.app/Contents/MacOS/QuPath-{{ dev_version }}                   # [osx]
     - cp ${RECIPE_DIR}/qupath-macos ${PREFIX}/bin/qupath                            # [osx]
 
     # --- windows
-    - mkdir %LIBRARY_PREFIX%\QuPath                                                                    # [win]
-    - robocopy %SRC_DIR%\qupath\ %LIBRARY_PREFIX%\QuPath\ *.* /E /MOV                                  # [win]
-    - copy %LIBRARY_PREFIX%\QuPath\QuPath-{{ github_version }}.exe %LIBRARY_PREFIX%\QuPath\QuPath.exe  # [win]
+    - echo on  # [win]
+    - cd qupath                                                                               # [win]
+    - dir                                                                                     # [win]
+    - gradlew createPackage                                                                   # [win]
+    - dir  # [win]
+    - FAIL  # [win]
+    - mkdir %LIBRARY_PREFIX%\QuPath                                                           # [win]
+    - cd %SRC_DIR%\qupath\build\                                                              # [win]
+    - echo %cd%  # [win]
+    - dir                                                                                     # [win]
+    - robocopy %SRC_DIR%\qupath\build\dist\QuPath-{{ dev_version }} %LIBRARY_PREFIX%\QuPath\ *.* /E /MOV                    # [win]
+    - copy %LIBRARY_PREFIX%\QuPath\QuPath-{{ dev_version }}.exe %LIBRARY_PREFIX%\QuPath\QuPath.exe  # [win]
 
   # At the moment these are milestones and there are no API stability guarantees.
   # So let's not pin here yet
@@ -69,9 +81,9 @@ build:
 
 requirements:
   build:
-    - p7zip  # [osx]
+    - openjdk >=14.*
   run:
-    - pixman >0.38.4 # [unix]
+    - pixman >0.38.4  # [unix]
 
 test:
   commands:
