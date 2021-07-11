@@ -2,3 +2,5 @@ channel_sources:
 - sdvillal,conda-forge,defaults
 channel_targets:
 - sdvillal main
+target_platform:
+- win-64
