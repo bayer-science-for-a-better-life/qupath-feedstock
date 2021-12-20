@@ -20,7 +20,7 @@ Current build status
     <td>
       <details>
         <summary>
-          <a href="https://dev.azure.com/sdvillal/feedstock-builds/_build/latest?definitionId=2&branchName=master">
+          <a href="https://dev.azure.com/sdvillal/feedstock-builds/_build/latest?definitionId=&branchName=master">
             <img src="https://dev.azure.com/sdvillal/feedstock-builds/_apis/build/status/qupath-feedstock?branchName=master">
           </a>
         </summary>
@@ -29,21 +29,21 @@ Current build status
           <tbody><tr>
               <td>linux_64</td>
               <td>
-                <a href="https://dev.azure.com/sdvillal/feedstock-builds/_build/latest?definitionId=2&branchName=master">
+                <a href="https://dev.azure.com/sdvillal/feedstock-builds/_build/latest?definitionId=&branchName=master">
                   <img src="https://dev.azure.com/sdvillal/feedstock-builds/_apis/build/status/qupath-feedstock?branchName=master&jobName=linux&configuration=linux_64_" alt="variant">
                 </a>
               </td>
             </tr><tr>
               <td>osx_64</td>
               <td>
-                <a href="https://dev.azure.com/sdvillal/feedstock-builds/_build/latest?definitionId=2&branchName=master">
+                <a href="https://dev.azure.com/sdvillal/feedstock-builds/_build/latest?definitionId=&branchName=master">
                   <img src="https://dev.azure.com/sdvillal/feedstock-builds/_apis/build/status/qupath-feedstock?branchName=master&jobName=osx&configuration=osx_64_" alt="variant">
                 </a>
               </td>
             </tr><tr>
               <td>win_64</td>
               <td>
-                <a href="https://dev.azure.com/sdvillal/feedstock-builds/_build/latest?definitionId=2&branchName=master">
+                <a href="https://dev.azure.com/sdvillal/feedstock-builds/_build/latest?definitionId=&branchName=master">
                   <img src="https://dev.azure.com/sdvillal/feedstock-builds/_apis/build/status/qupath-feedstock?branchName=master&jobName=win&configuration=win_64_" alt="variant">
                 </a>
               </td>
