@@ -5,13 +5,13 @@
 # we repackage QuPath releases, including the current JRE used to develop them.
 #
 # This package allows using QuPath both as a standalone application or pimped
-# from python using "ququ", that should be able to automagically find qupath
+# from python using "paquo", that should be able to automagically find qupath
 # when this package is installed.
 #
 
-{% set github_version="0.2.0-m9" %}
-{% set version="0.2.0.m9" %}
-{% set build_number="1" %}
+{% set github_version="0.3.0" %}
+{% set version="0.3.0" %}
+{% set build_number="0" %}
 
 package:
   name: qupath
@@ -20,14 +20,14 @@ package:
 source:
 
   - url: https://github.com/qupath/qupath/releases/download/v{{ github_version }}/QuPath-{{ github_version }}-Linux.tar.xz  # [linux]
-    sha256: 8eace54cdba63c1c4b19a91d0dd103256bc845922e0532025c4a2c23c30bbdae                                                # [linux]
+    sha256: 568c561b3872e1f6cd702796bb5d5a1700c9a3cbb7d47ab28f5d42f8d001ac14                                                # [linux]
 
-  - url: https://github.com/qupath/qupath/releases/download/v{{ github_version }}/QuPath-{{ github_version }}-Mac.dmg  # [osx]
-    sha256: 34d8fb5e32c7ee627b2b06fe3c713f8474a5d72a68b290f17ba85c86aeda7b09                                           # [osx]
+  - url: https://github.com/qupath/qupath/releases/download/v{{ github_version }}/QuPath-{{ github_version }}-Mac.pkg  # [osx]
+    sha256: 07e677d5ba68736bb1539cdbaf974348023c6aa8ef70899ec36f51a95e166831                                           # [osx]
 
   - url: https://github.com/qupath/qupath/releases/download/v{{ github_version }}/QuPath-{{ github_version }}-Windows.zip  # [win]
     folder: qupath                                                                                                         # [win]
-    sha256: 522f57211ec0e02c7a2d5e435950f2537be52e7bd1740e37c8a458657ec81817                                               # [win]
+    sha256: 2be860885b3d0d86c9cee002d376955b75d4d72034da65926b4825ac64722f90                                               # [win]
 
 build:
 
@@ -44,18 +44,18 @@ build:
     - mv bin lib ${PREFIX}/opt/QuPath-{{ github_version }}              # [linux]
     - cd ${PREFIX}/opt                                                  # [linux]
     - ln -s QuPath-{{ github_version }} QuPath                          # [linux]
+    - chmod +x QuPath/bin/QuPath                                        # [linux]
     - mkdir -p ${PREFIX}/bin                                            # [linux]
     - cd ${PREFIX}/bin                                                  # [linux]
-    - ln -s ../opt/QuPath/bin/QuPath-{{ github_version }} ./qupath-bin  # [linux]
-    - cp ${RECIPE_DIR}/qupath-linux ${PREFIX}/bin/qupath                # [linux]
+    - ln -s ../opt/QuPath/bin/QuPath ./qupath-bin                       # [linux]
+    - cp ${RECIPE_DIR}/qupath-linux ${PREFIX}/bin/qupath                # [linux]
 
     # --- macos
-    - 7z x QuPath-{{ github_version }}-Mac.dmg                                      # [osx]
-    - mv QuPath-{{ github_version }}/QuPath-{{ github_version }}.app ${PREFIX}/bin  # [osx]
-    - cd ${PREFIX}/bin                                                              # [osx]
-    - ln -s QuPath-{{ github_version }}.app QuPath.app                              # [osx]
-    - chmod +x QuPath.app/Contents/MacOS/QuPath-{{ github_version }}                # [osx]
-    - cp ${RECIPE_DIR}/qupath-macos ${PREFIX}/bin/qupath                            # [osx]
+    - 7z x QuPath-{{ github_version }}-Mac.pkg                          # [osx]
+    - 7z x Payload~                                                     # [osx]
+    - mv QuPath.app ${PREFIX}/bin                                       # [osx]
+    - chmod +x ${PREFIX}/bin/QuPath.app/Contents/MacOS/QuPath           # [osx]
+    - cp ${RECIPE_DIR}/qupath-macos ${PREFIX}/bin/qupath                # [osx]
 
     # --- windows
     - mkdir %LIBRARY_PREFIX%\QuPath                                                                    # [win]
@@ -71,7 +71,7 @@ requirements:
   build:
     - p7zip  # [osx]
   run:
-    - pixman >0.38.4 # [unix]
+    - pixman  # [unix]
 
 test:
   commands:

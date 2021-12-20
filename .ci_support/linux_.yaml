@@ -1,6 +1,0 @@
-channel_sources:
-- sdvillal,conda-forge,defaults
-channel_targets:
-- sdvillal main
-docker_image:
-- condaforge/linux-anvil-comp7

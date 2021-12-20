@@ -10,7 +10,7 @@ done
 DIR="$( cd -P "$( dirname "$SOURCE" )" >/dev/null 2>&1 && pwd )"
 
 #
-# Do run QuPath
+# Do run QuPath
 #
 # N.B. at the moment we need the nasty LD_LIBRARY_PATH trick because:
 #   - otherwise in unix-like systems qupath load libraries first from system dirs
