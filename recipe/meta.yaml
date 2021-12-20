@@ -19,15 +19,15 @@ package:
 
 source:
 
-  - url: https://github.com/qupath/qupath/releases/download/v{{ github_version }}/QuPath-{{ github_version }}.tar.xz  # [linux]
-    sha256: 568c561b3872e1f6cd702796bb5d5a1700c9a3cbb7d47ab28f5d42f8d001ac14                                          # [linux]
+  - url: https://github.com/qupath/qupath/releases/download/v{{ github_version }}/QuPath-{{ github_version }}-Linux.tar.xz  # [linux]
+    sha256: 568c561b3872e1f6cd702796bb5d5a1700c9a3cbb7d47ab28f5d42f8d001ac14                                                # [linux]
 
-  - url: https://github.com/qupath/qupath/releases/download/v{{ github_version }}/QuPath-{{ github_version }}.pkg  # [osx]
-    sha256: 07e677d5ba68736bb1539cdbaf974348023c6aa8ef70899ec36f51a95e166831                                       # [osx]
+  - url: https://github.com/qupath/qupath/releases/download/v{{ github_version }}/QuPath-{{ github_version }}-Mac.pkg  # [osx]
+    sha256: 07e677d5ba68736bb1539cdbaf974348023c6aa8ef70899ec36f51a95e166831                                           # [osx]
 
-  - url: https://github.com/qupath/qupath/releases/download/v{{ github_version }}/QuPath-{{ github_version }}.zip  # [win]
-    folder: qupath                                                                                                 # [win]
-    sha256: 2be860885b3d0d86c9cee002d376955b75d4d72034da65926b4825ac64722f90                                       # [win]
+  - url: https://github.com/qupath/qupath/releases/download/v{{ github_version }}/QuPath-{{ github_version }}-Windows.zip  # [win]
+    folder: qupath                                                                                                         # [win]
+    sha256: 2be860885b3d0d86c9cee002d376955b75d4d72034da65926b4825ac64722f90                                               # [win]
 
 build:
 
