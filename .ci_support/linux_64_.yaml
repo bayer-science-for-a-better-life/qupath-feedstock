@@ -1,7 +1,7 @@
 cdt_name:
 - cos6
 channel_sources:
-- sdvillal,conda-forge,defaults
+- conda-forge
 channel_targets:
 - sdvillal main
 docker_image:

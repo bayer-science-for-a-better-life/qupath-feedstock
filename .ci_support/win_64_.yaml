@@ -1,5 +1,5 @@
 channel_sources:
-- sdvillal,conda-forge,defaults
+- conda-forge
 channel_targets:
 - sdvillal main
 target_platform:
