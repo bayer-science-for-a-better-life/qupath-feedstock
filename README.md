@@ -1,11 +1,11 @@
-About qupath
-============
+About qupath-feedstock
+======================
+
+Feedstock license: [BSD-3-Clause](https://github.com/sdvillal/qupath-feedstock/blob/master/LICENSE.txt)
 
 Home: https://qupath.github.io/
 
 Package license: GPLv3
-
-Feedstock license: [BSD-3-Clause](https://github.com/sdvillal/qupath-feedstock/blob/master/LICENSE.txt)
 
 Summary: QuPath is an open, powerful, flexible, extensible software platform for whole slide image analysis.
 
@@ -20,7 +20,7 @@ Current build status
     <td>
       <details>
         <summary>
-          <a href="https://dev.azure.com/sdvillal/feedstock-builds/_build/latest?definitionId=&branchName=master">
+          <a href="https://dev.azure.com/sdvillal/feedstock-builds/_build/latest?definitionId=2&branchName=master">
             <img src="https://dev.azure.com/sdvillal/feedstock-builds/_apis/build/status/qupath-feedstock?branchName=master">
           </a>
         </summary>
@@ -29,22 +29,22 @@ Current build status
           <tbody><tr>
               <td>linux_64</td>
               <td>
-                <a href="https://dev.azure.com/sdvillal/feedstock-builds/_build/latest?definitionId=&branchName=master">
-                  <img src="https://dev.azure.com/sdvillal/feedstock-builds/_apis/build/status/qupath-feedstock?branchName=master&jobName=linux&configuration=linux_64_" alt="variant">
+                <a href="https://dev.azure.com/sdvillal/feedstock-builds/_build/latest?definitionId=2&branchName=master">
+                  <img src="https://dev.azure.com/sdvillal/feedstock-builds/_apis/build/status/qupath-feedstock?branchName=master&jobName=linux&configuration=linux%20linux_64_" alt="variant">
                 </a>
               </td>
             </tr><tr>
               <td>osx_64</td>
               <td>
-                <a href="https://dev.azure.com/sdvillal/feedstock-builds/_build/latest?definitionId=&branchName=master">
-                  <img src="https://dev.azure.com/sdvillal/feedstock-builds/_apis/build/status/qupath-feedstock?branchName=master&jobName=osx&configuration=osx_64_" alt="variant">
+                <a href="https://dev.azure.com/sdvillal/feedstock-builds/_build/latest?definitionId=2&branchName=master">
+                  <img src="https://dev.azure.com/sdvillal/feedstock-builds/_apis/build/status/qupath-feedstock?branchName=master&jobName=osx&configuration=osx%20osx_64_" alt="variant">
                 </a>
               </td>
             </tr><tr>
               <td>win_64</td>
               <td>
-                <a href="https://dev.azure.com/sdvillal/feedstock-builds/_build/latest?definitionId=&branchName=master">
-                  <img src="https://dev.azure.com/sdvillal/feedstock-builds/_apis/build/status/qupath-feedstock?branchName=master&jobName=win&configuration=win_64_" alt="variant">
+                <a href="https://dev.azure.com/sdvillal/feedstock-builds/_build/latest?definitionId=2&branchName=master">
+                  <img src="https://dev.azure.com/sdvillal/feedstock-builds/_apis/build/status/qupath-feedstock?branchName=master&jobName=win&configuration=win%20win_64_" alt="variant">
                 </a>
               </td>
             </tr>
@@ -72,16 +72,41 @@ conda config --add channels sdvillal
 conda config --set channel_priority strict
 ```
 
-Once the `sdvillal` channel has been enabled, `qupath` can be installed with:
+Once the `sdvillal` channel has been enabled, `qupath` can be installed with `conda`:
 
 ```
 conda install qupath
 ```
 
-It is possible to list all of the versions of `qupath` available on your platform with:
+or with `mamba`:
+
+```
+mamba install qupath
+```
+
+It is possible to list all of the versions of `qupath` available on your platform with `conda`:
 
 ```
 conda search qupath --channel sdvillal
+```
+
+or with `mamba`:
+
+```
+mamba search qupath --channel sdvillal
+```
+
+Alternatively, `mamba repoquery` may provide more information:
+
+```
+# Search all versions available on your platform:
+mamba repoquery search qupath --channel sdvillal
+
+# List packages depending on `qupath`:
+mamba repoquery whoneeds qupath --channel sdvillal
+
+# List dependencies of `qupath`:
+mamba repoquery depends qupath --channel sdvillal
 ```
 
 
