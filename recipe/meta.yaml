@@ -9,8 +9,8 @@
 # when this package is installed.
 #
 
-{% set github_version="0.3.0" %}
-{% set version="0.3.0" %}
+{% set github_version="0.5.0" %}
+{% set version="0.5.0" %}
 {% set build_number="0" %}
 
 package:
@@ -20,14 +20,17 @@ package:
 source:
 
   - url: https://github.com/qupath/qupath/releases/download/v{{ github_version }}/QuPath-{{ github_version }}-Linux.tar.xz  # [linux]
-    sha256: 568c561b3872e1f6cd702796bb5d5a1700c9a3cbb7d47ab28f5d42f8d001ac14                                                # [linux]
+    sha256: f426234ece3916d0a6c0669cf3c4e9caac7f0ab88431a04e2bb6bd221bce02f4                                                # [linux]
 
-  - url: https://github.com/qupath/qupath/releases/download/v{{ github_version }}/QuPath-{{ github_version }}-Mac.pkg  # [osx]
-    sha256: 07e677d5ba68736bb1539cdbaf974348023c6aa8ef70899ec36f51a95e166831                                           # [osx]
+  - url: https://github.com/qupath/qupath/releases/download/v{{ github_version }}/QuPath-{{ github_version }}-Mac-arm64.pkg  # [osx and arm64]
+    sha256: e08fa1542298b7c7ef56acfeba10febc7c1c7dd2f3e11544a01723f100f99402                                                 # [osx and arm64]
+
+  - url: https://github.com/qupath/qupath/releases/download/v{{ github_version }}/QuPath-{{ github_version }}-Mac-x64.pkg    # [osx and not arm64]
+    sha256: 6d36907995ccfd54ce514ad7a7011f8f7988ce285923fff526d1d19a891cf5ad                                                 # [osx and not arm64]
 
   - url: https://github.com/qupath/qupath/releases/download/v{{ github_version }}/QuPath-{{ github_version }}-Windows.zip  # [win]
     folder: qupath                                                                                                         # [win]
-    sha256: 2be860885b3d0d86c9cee002d376955b75d4d72034da65926b4825ac64722f90                                               # [win]
+    sha256: bd440a1ab5e8213c32775cb5d3919b21c8aa16b17bbf3f816fc1bac08eeea520                                               # [win]
 
 build:
 
@@ -50,8 +53,9 @@ build:
     - ln -s ../opt/QuPath/bin/QuPath ./qupath-bin                       # [linux]
     - cp ${RECIPE_DIR}/qupath-linux ${PREFIX}/bin/qupath                # [linux]
 
-    # --- macos
-    - 7z x QuPath-{{ github_version }}-Mac.pkg                          # [osx]
+    # --- macos arm
+    - 7z x QuPath-{{ github_version }}-Mac-arm64.pkg                    # [osx and arm64]
+    - 7z x QuPath-{{ github_version }}-Mac-x64.pkg                      # [osx and not arm64]
     - 7z x Payload~                                                     # [osx]
     - mv QuPath.app ${PREFIX}/bin                                       # [osx]
     - chmod +x ${PREFIX}/bin/QuPath.app/Contents/MacOS/QuPath           # [osx]
