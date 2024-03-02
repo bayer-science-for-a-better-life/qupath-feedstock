@@ -57,6 +57,8 @@ build:
     - 7z x QuPath-v{{ github_version }}-Mac-arm64.pkg                              # [osx and arm64]
     - 7z x QuPath-v{{ github_version }}-Mac-x64.pkg                                # [osx and not arm64]
     - 7z x Payload~                                                                # [osx]
+    - pwd  # [osx]
+    - ls   # [osx]
     - mv QuPath-{{ version }}-arm64.app ${PREFIX}/bin/QuPath.app                   # [osx and arm64]
     - mv QuPath-{{ version }}-x64.app ${PREFIX}/bin/QuPath.app                     # [osx and not arm64]
     - chmod +x ${PREFIX}/bin/QuPath.app/Contents/MacOS/QuPath-{{ version }}-arm64  # [osx and arm64]
