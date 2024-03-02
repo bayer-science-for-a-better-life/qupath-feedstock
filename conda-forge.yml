@@ -8,14 +8,6 @@
 # Make sure not to leak secrets!
 #
 
-channels:
-  sources:
-    - sdvillal
-    - conda-forge
-    - defaults
-  targets:
-    - ["sdvillal", "main"]
-
 provider:
   linux: azure
   osx: azure
