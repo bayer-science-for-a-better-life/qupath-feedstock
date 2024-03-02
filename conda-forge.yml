@@ -8,6 +8,9 @@
 # Make sure not to leak secrets!
 #
 
+build_platform:
+  osx_arm64: osx_64
+
 provider:
   linux: azure
   osx: azure
