@@ -8,18 +8,15 @@
 # Make sure not to leak secrets!
 #
 
-channels:
-  sources:
-    - sdvillal
-    - conda-forge
-    - defaults
-  targets:
-    - ["sdvillal", "main"]
+build_platform:
+  osx_arm64: osx_64
 
-provider:
-  linux: azure
-  osx: azure
-  win: azure
+conda_build:
+  pkg_format: '2'
+
+conda_forge_output_validation: true
+
+test_on_native_only: true
 
 github:
   user_or_org: sdvillal
@@ -28,4 +25,4 @@ github:
 azure:
   user_or_org: sdvillal
   upload_packages: True
-  force: False
+  force: True
